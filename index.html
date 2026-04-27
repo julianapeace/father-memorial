@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Memorial</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" id="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" id="brand" href="#">Memorial</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="intro">
+        <div class="hero">
+          <img
+            id="hero-img"
+            src="https://placehold.co/1400x700/2c2825/e8e3d8?text=Memory"
+            alt=""
+            fetchpriority="high"
+          />
+        </div>
+
+        <div class="welcome-text">
+          <h1 id="welcome-name"></h1>
+          <p id="welcome-dates" class="dates"></p>
+          <p id="welcome-line" class="tagline"></p>
+        </div>
+
+        <div id="intro-video-wrap" class="intro-video" hidden>
+          <h2 class="section-title intro-video__title" id="intro-video-heading"></h2>
+          <div class="player-shell intro-video__player" id="intro-video-shell"></div>
+        </div>
+      </div>
+
+      <section class="themes-section" id="themes" aria-labelledby="themes-heading">
+        <h2 class="section-title" id="themes-heading"></h2>
+        <div class="theme-grid" id="theme-grid"></div>
+      </section>
+
+      <section id="theme-detail" class="theme-detail" hidden tabindex="-1">
+        <p class="section-title theme-detail-title" id="theme-videos-title"></p>
+        <div id="theme-video-gallery" class="video-gallery" aria-label="Clips in this topic"></div>
+        <div id="theme-player-section" class="theme-player-section">
+          <div class="player-shell" id="theme-inline-player" aria-live="polite"></div>
+          <div class="player-meta" id="theme-player-meta">
+            <div id="theme-player-now-title"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <a
+      class="site-qr"
+      href="http://eddiemei.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open memorial site on your phone: eddiemei.com"
+    >
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=128x128&amp;data=http%3A%2F%2Feddiemei.com%2F"
+        alt=""
+        width="128"
+        height="128"
+        decoding="async"
+        loading="lazy"
+      />
+    </a>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
