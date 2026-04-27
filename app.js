@@ -62,6 +62,16 @@
     return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   }
 
+  function safeMediaUrl(url) {
+    try {
+      const u = new URL(url);
+      if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+      return u.href;
+    } catch {
+      return null;
+    }
+  }
+
   function youtubeEmbedUrl(videoId, opts) {
     const autoplay = opts && opts.autoplay !== false ? "1" : "0";
     const mute = opts && opts.mute ? "1" : "0";
@@ -89,11 +99,15 @@
     const shell = $("#intro-video-shell");
     if (!wrap || !heading || !shell) return;
 
-    const fv = data.frontPageVideo;
-    const rawId = fv && typeof fv.youtubeId === "string" ? fv.youtubeId.trim() : "";
-    if (!rawId) {
+    const fv = data.frontPageVideo || {};
+    const videoRaw = typeof fv.videoUrl === "string" ? fv.videoUrl.trim() : "";
+    const videoHref = videoRaw ? safeMediaUrl(videoRaw) : null;
+    const rawId = typeof fv.youtubeId === "string" ? fv.youtubeId.trim() : "";
+
+    if (!videoHref && !rawId) {
       wrap.hidden = true;
       shell.innerHTML = "";
+      shell.className = "player-shell intro-video__player";
       heading.innerHTML = "";
       return;
     }
@@ -101,15 +115,30 @@
     wrap.hidden = false;
     heading.innerHTML = fv.title ? stackHtml(fv.title) : "";
 
-    shell.innerHTML = "";
-    const iframe = document.createElement("iframe");
     const t = fv.title;
-    iframe.title =
+    const ariaTitle =
       t && typeof t.en === "string" && typeof t.zh === "string"
         ? `${t.en} · ${t.zh}`
         : t && typeof t.en === "string"
           ? t.en
           : "Memorial video";
+
+    shell.innerHTML = "";
+    shell.className = "player-shell intro-video__player";
+
+    if (videoHref) {
+      const video = document.createElement("video");
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      video.title = ariaTitle;
+      video.src = videoHref;
+      shell.appendChild(video);
+      return;
+    }
+
+    const iframe = document.createElement("iframe");
+    iframe.title = ariaTitle;
     iframe.setAttribute("allowfullscreen", "");
     iframe.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";

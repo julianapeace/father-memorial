@@ -13,9 +13,14 @@ window.MEMORIAL_DATA = {
     "https://ik.imagekit.io/yqhaxskw3/mmexport1768371008053.jpg",
     // "https://ik.imagekit.io/yqhaxskw3/20260111_140926.jpg",
 
-  /** YouTube ID for the video under the hero. Replace before the service; empty string hides the player. */
+  /**
+   * Video under the hero. If videoUrl is set (e.g. S3 MP4), it is used. Otherwise youtubeId embeds YouTube.
+   */
   frontPageVideo: {
-    youtubeId: "YcA_UFqwIiU"
+    videoUrl:
+      "https://eddiemei-memorial-assets.s3.us-east-1.amazonaws.com/20251002_181303.mp4",
+    youtubeId: "",
+    title: { en: "Memorial video", zh: "纪念影片" },
   },
 
   strings: {
